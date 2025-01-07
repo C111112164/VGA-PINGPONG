@@ -30,7 +30,7 @@ signal prestate: counter_state;
     
     signal   x: integer;
     -- VGA參數定義 (640x480解析度，60Hz刷新率)
-    constant cutoff_x : integer := 610;
+    constant cutoff_x : integer := 620;
     constant cutoff_x1 : integer := 150;
     constant xplus         : integer := 50;
     constant H_SYNC_CYCLES : integer := 96;  -- 水平同步脈寬
@@ -85,8 +85,8 @@ o_count <= count;
             -- 圓心位置 (480, 360)，半徑 15
             if ( (  h_count - x -xplus) * ( h_count - x-xplus) + (v_count - 360) * (v_count - 360) <= 15 * 15 ) then
                 red   <= "0000";         -- 紅色為 0000
-                green <= "1111";         -- 綠色為 1111
-                blue  <= "0000";         -- 藍色為 0000
+                green <= "0000";         -- 綠色為 1111
+                blue  <= "1111";         -- 藍色為 0000
             else
                 red   <= "0000";         -- 默認為黑色
                 green <= "0000";         -- 默認為黑色
@@ -111,7 +111,7 @@ o_count <= count;
 vga_move :process (i_clk , i_rst)
 begin
     if i_rst = '0' then
-        x <=320; 
+        x <=200; 
     elsif led_clk' event and led_clk = '1' then
         case counter_move_state is 
             when counter_is_counting_left =>
@@ -125,7 +125,7 @@ begin
             when left_ready_serve =>
                 x <=60; --?????l??                          
             when right_ready_serve =>
-                x <=540; --?k???l??
+                x <=550; --?k???l??
             when others =>
                 null;
         end case;
